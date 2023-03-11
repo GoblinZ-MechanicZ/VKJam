@@ -1,14 +1,19 @@
 fileFormatVersion: 2
-guid: 986ec7f6d3f931141bd895ef8b73e9ba
+guid: 187d2f9a2b76fa9489900d5bcbdfac0f
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: city-floor
+    second: {fileID: 2100000, guid: b739ae50b96965142be1da60f06de92a, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 1
-    materialSearch: 0
-    materialLocation: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
