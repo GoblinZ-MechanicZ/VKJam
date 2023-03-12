@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class policeLight : MonoBehaviour
+public class PoliceLight : MonoBehaviour
 {
     [SerializeField] float timerPeriud = 1;
     [SerializeField] GameObject redLight = null;
