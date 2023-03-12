@@ -4,31 +4,54 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-    [SerializeField] private Vector3 OnHoverPopup;
+    private static bool Busy = false;
+    [SerializeField] private Vector3 OnEnterPopup;
+    [SerializeField] private Vector3 OnExitPopup;
     [SerializeField] private float hoverAnimationTime = 0.5f;
-    
+
     private IEnumerator doHover;
 
-    public void OnHoverEnter() {
-        if(doHover != null) {
+    private bool isShow = false;
+
+    public void OnHoverEnter()
+    {
+        if (Busy && !isShow) { return; }
+
+        if (doHover != null)
+        {
             StopCoroutine(doHover);
         }
 
-        doHover = DoHover(true);
+        isShow = !isShow;
+        if (isShow) { Busy = isShow; }
+
+        doHover = DoHover(isShow);
+        StartCoroutine(doHover);
     }
 
-    public void OnHoverExit() {
-
+    public void OnClick()
+    {
+        Destroy(this.gameObject);
     }
 
-    private IEnumerator DoHover(bool show) {
-        float hoverTimer = (show) ? 0 : hoverAnimationTime;
+    private IEnumerator DoHover(bool show)
+    {
+        float hoverTimer = 0f;
+        float hoverTimerEnd = hoverAnimationTime;
 
-        while(hoverTimer > ((show) ? hoverAnimationTime : 0)) {
-            if(show) hoverTimer += Time.deltaTime; 
-            else hoverTimer -= Time.deltaTime;
+        Vector3 startPos, endPos;
+
+        startPos = transform.localPosition;
+        endPos = (show) ? OnEnterPopup : OnExitPopup;
+
+        while (hoverTimer < hoverTimerEnd)
+        {
+            hoverTimer += Time.deltaTime;
+
+            transform.localPosition = Vector3.Lerp(startPos, endPos, hoverTimer / hoverAnimationTime);
 
             yield return new WaitForEndOfFrame();
         }
+        Busy = show;
     }
 }
